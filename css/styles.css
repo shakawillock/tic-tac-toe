@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.main-title {
+  font-size: 4rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid #000;
+}
+
+.box {
+  border: 1px solid #000;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+}
