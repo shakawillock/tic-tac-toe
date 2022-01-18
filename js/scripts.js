@@ -63,19 +63,19 @@ const game = (() => {
     e.target.textContent = `${player.marker}`;
     gameBoard.array[index] = `${player.marker}`;
     
-    checkForWinner()
-    checkForTie()
+    checkForWinner();
+    checkForTie();
   }
 
   function checkForWinner() {
     for (let i = 0; i < winningNumbers.length; i++) {
       const [a, b, c] = winningNumbers[i];
       if (boxes[a].textContent && boxes[a].textContent === boxes[b].textContent && boxes[a].textContent === boxes[c].textContent) {
-        announceWinner(boxes[a].textContent)
-        return boxes[a]
+        let marker = boxes[a].textContent;
+        announceWinner(marker);
       }
     }
-    return null
+    return null;
   }
 
   function announceWinner(marker) {
