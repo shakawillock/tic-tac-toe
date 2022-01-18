@@ -12,11 +12,12 @@ const game = (() => {
   let currentMarker;
   let winner = false;
 
-  const possibilities = [
+  const winningNumbers = [
     [0, 1, 2],
     [0, 3, 6],
     [0, 4, 8],
     [1, 4, 7],
+    [2, 4, 6], 
     [2, 5, 8],
     [3, 4, 5],
     [6, 7, 8]
@@ -56,8 +57,6 @@ const game = (() => {
 
     currentMarker = player.marker;
 
- 
-
     if (player.marker === 'X') {
       playerName.textContent = "Player O's turn";
       playerXChoices.push(index);
@@ -75,31 +74,6 @@ const game = (() => {
   }
 
   function checkWinner() {
-    if (playerXChoices.length === 3) {
-      for (let i = 0; i < possibilities.length; i++) {
-        if (playerXChoices.every(element => possibilities[i].includes(element))) {
-          playerName.textContent = "Player X has won!";
-          return true;
-        } 
-      }
-
-      playerXChoices = playerXChoices.slice(0, -1);
-    }
     
-    if (playerOChoices.length === 3) {
-      for (let i = 0; i < possibilities.length; i++) {
-        if (playerOChoices.every(element => possibilities[i].includes(element))) {
-          playerName.textContent = "Player O has won!";
-          return true;
-        }
-      }
-
-      playerOChoices = playerOChoices.slice(0, -1);
-    }
-
-    if (gameBoard.ticTacToeBoard.every(element => element !== null)) {
-      playerName.textContent = "It's a draw!";
-    }
-
   }
 })();
