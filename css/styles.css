@@ -6,6 +6,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
+  background-color:#a594f9;
 }
 
 .container {
@@ -38,5 +39,27 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 3rem;
+}
+
+.box, .btn-restart {
   cursor: pointer;
+}
+
+.box:hover {
+  background-color: #cdc1ff;
+}
+
+.button-container {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.btn-restart {
+  width: 200px;
+  padding: 1rem 2rem;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 2rem;
+  background-color: #7371FC;
+  color: #fff;
 }
