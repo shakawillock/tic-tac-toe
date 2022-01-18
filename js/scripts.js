@@ -23,9 +23,6 @@ const game = (() => {
     [6, 7, 8]
   ];
  
-  let playerXChoices = [];
-  let playerOChoices = [];
-
   boxes.forEach((box, index) => {
     box.addEventListener('click', (e) => {
       playerSelection(e,  playRound.switchPlayer(), index);
@@ -33,7 +30,7 @@ const game = (() => {
   });
 
   const gameBoard = {
-    ticTacToeBoard: [null, null, null, null, null, null, null, null, null],
+    array: [null, null, null, null, null, null, null, null, null],
   };
 
   const playRound = {
@@ -59,21 +56,41 @@ const game = (() => {
 
     if (player.marker === 'X') {
       playerName.textContent = "Player O's turn";
-      playerXChoices.push(index);
     } else {
       playerName.textContent = "Player X's turn";
-      playerOChoices.push(index);
     }
 
     e.target.textContent = `${player.marker}`;
-    gameBoard.ticTacToeBoard[index] = `${player.marker}`;
+    gameBoard.array[index] = `${player.marker}`;
     
-    if (checkWinner(index)) {
-      winner = true;
-    }
+    checkForWinner()
+    checkForTie()
   }
 
-  function checkWinner() {
-    
+  function checkForWinner() {
+    for (let i = 0; i < winningNumbers.length; i++) {
+      const [a, b, c] = winningNumbers[i];
+      if (boxes[a].textContent && boxes[a].textContent === boxes[b].textContent && boxes[a].textContent === boxes[c].textContent) {
+        announceWinner(boxes[a].textContent)
+        return boxes[a]
+      }
+    }
+    return null
+  }
+
+  function announceWinner(marker) {
+    if (marker === 'X') {
+      playerName.textContent = 'Player X  has won!';
+    } else {
+      playerName.textContent = 'Player O has won!';
+    }
+
+    winner = true;
+  }
+
+  function checkForTie() {
+   if (gameBoard.array.every(letter => letter !== null)) {
+     playerName.textContent = "It's a tie!";
+   }
   }
 })();
