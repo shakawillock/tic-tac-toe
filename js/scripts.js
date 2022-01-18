@@ -8,6 +8,7 @@ const player2 = createPlayer('Player O', 'O');
 const game = (() => {
   const playerName = document.querySelector('.player-name');
   const boxes = document.querySelectorAll('.box');
+  const restartBtn = document.querySelector('.btn-restart');
 
   let currentMarker;
   let winner = false;
@@ -28,6 +29,8 @@ const game = (() => {
       playerSelection(e,  playRound.switchPlayer(), index);
     });
   });
+
+  restartBtn.addEventListener('click', restartGame);
 
   const gameBoard = {
     array: [null, null, null, null, null, null, null, null, null],
@@ -91,6 +94,23 @@ const game = (() => {
   function checkForTie() {
    if (gameBoard.array.every(letter => letter !== null)) {
      playerName.textContent = "It's a tie!";
+   }
+  }
+
+  function restartGame() {
+   boxes.forEach(box => {
+     box.textContent = '';
+   });
+
+   winner = false;
+   currentMarker = '';
+
+   playerName.textContent = "Player X's turn";
+   
+   for (let i = 0; i < gameBoard.array.length; i++) {
+     if (gameBoard.array[i] !== null) {
+       gameBoard.array[i] = null;
+     }
    }
   }
 })();
