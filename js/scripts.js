@@ -1,5 +1,7 @@
 function createPlayer(name, marker) {
-  return { name, marker };
+  const getName = () => name;
+  const getMarker = () => marker;
+  return { getName, getMarker};
 }
 
 const player1 = createPlayer('Player X', 'X');
@@ -10,7 +12,7 @@ const game = (() => {
   const boxes = document.querySelectorAll('.box');
   const restartBtn = document.querySelector('.btn-restart');
 
-  let currentMarker;
+  let currentMarker = '';
   let winner = false;
 
   const winningNumbers = [
@@ -38,7 +40,7 @@ const game = (() => {
 
   const playRound = {
     switchPlayer: function() {
-       if (currentMarker === 'X') {
+       if (currentMarker === player1.getMarker()) {
          return player2;
        } else {
          return player1;
@@ -47,24 +49,24 @@ const game = (() => {
   };
 
   function playerSelection(e, player, index) {
-    if (winner) {
+    if (winner === true) {
       return;
     }
 
-    if (e.target.textContent){
+    if (e.target.textContent !== ''){
       return;
     }
 
-    currentMarker = player.marker;
+    currentMarker = player.getMarker();
 
-    if (player.marker === 'X') {
-      playerName.textContent = "Player O's turn";
+    if (player.getMarker() === 'X') {
+      playerName.textContent = `${player2.getName()}'s turn`;
     } else {
-      playerName.textContent = "Player X's turn";
+      playerName.textContent = `${player1.getName()}'s turn`;
     }
 
-    e.target.textContent = `${player.marker}`;
-    gameBoard.array[index] = `${player.marker}`;
+    e.target.textContent = `${player.getMarker()}`;
+    gameBoard.array[index] = `${player.getMarker()}`;
     
     checkForWinner();
     checkForTie();
@@ -83,9 +85,9 @@ const game = (() => {
 
   function announceWinner(marker) {
     if (marker === 'X') {
-      playerName.textContent = 'Player X  has won!';
+      playerName.textContent = `${player1.getName()} has won!`;
     } else {
-      playerName.textContent = 'Player O has won!';
+      playerName.textContent = `${player2.getName()} has won!`;
     }
 
     winner = true;
@@ -105,7 +107,7 @@ const game = (() => {
    winner = false;
    currentMarker = '';
 
-   playerName.textContent = "Player X's turn";
+   playerName.textContent = `${player1.getName()}'s turn`;
    
    for (let i = 0; i < gameBoard.array.length; i++) {
      if (gameBoard.array[i] !== null) {
